@@ -30,12 +30,12 @@
             <router-link to="/login" v-if="!loginSuccess">登入</router-link>
             <router-link to="/admin" v-else>已登入，到後台</router-link>
           </button>
-          <button class="btn btn-primary">
+          <router-link class="btn btn-primary" to="/cart">
             結帳
             <span class="badge rounded-pill bg-light text-dark">{{
               cart.carts.length
             }}</span>
-          </button>
+          </router-link>
         </div>
       </div>
     </div>

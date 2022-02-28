@@ -12,9 +12,22 @@
             </p>
           </div>
           <div class="card-footer bg-transparent border-0">
-            <router-link class="btn btn-primary" :to="`/product/${item.id}`"
-              >View More</router-link
+            <router-link
+              class="btn btn-outline-primary me-3"
+              :to="`/product/${item.id}`"
+              >查看更多</router-link
             >
+            <button
+              class="btn btn-primary"
+              :disabled="isLoadingItem === item.id"
+              @click.prevent="addToCart(item.id)"
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                v-if="isLoadingItem === item.id"
+              ></span>
+              加入購物車
+            </button>
           </div>
         </div>
       </div>
@@ -23,10 +36,13 @@
 </template>
 
 <script>
+import emitter from '@/libs/emitter'
+
 export default {
   data () {
     return {
-      products: []
+      products: [],
+      isLoadingItem: ''
     }
   },
   methods: {
@@ -39,6 +55,29 @@ export default {
         .then((res) => {
           this.products = res.data.products
           console.log(this.products)
+        })
+        .catch((err) => {
+          console.log(err.response.data)
+        })
+    },
+    addToCart (id, qty = 1) {
+      this.isLoadingItem = id
+      const obj = {
+        data: {
+          product_id: id,
+          qty
+        }
+      }
+      this.$http
+        .post(
+          `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_PATH}/cart`,
+          obj
+        )
+        .then((res) => {
+          alert(res.data.message)
+          // this.getCart()
+          emitter.emit('get-cart')
+          this.isLoadingItem = ''
         })
         .catch((err) => {
           console.log(err.response.data)

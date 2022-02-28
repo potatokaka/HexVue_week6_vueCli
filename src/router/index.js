@@ -13,7 +13,7 @@ const routes = [
     component: () => import('../views/FrontView.vue'),
     children: [
       {
-        path: '/',
+        path: '',
         component: Home
       },
       {
@@ -49,6 +49,11 @@ const routes = [
         component: () => import('../views/AdminCoupon.vue')
       }
     ]
+  },
+  // 404
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('../views/NotFound.vue')
   }
 ]
 

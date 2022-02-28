@@ -20,6 +20,7 @@ git commit -m 'deploy'
 # git push -f git@github.com:<USERNAME>/<REPO>.git main:gh-pages
 #git push -f git@github.com:potatokaka/HexVue_week6_vueCli.git main:gh-pages
 
-git push -f git@github.com:potatokaka/HexVue_week6_vueCli.git master:gh-pages
+#git push -f git@github.com:potatokaka/HexVue_week6_vueCli.git master:gh-pages
+git push -f https://github.com/potatokaka/HexVue_week6_vueCli.git master:gh-pages
 
 cd -
